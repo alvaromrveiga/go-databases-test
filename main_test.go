@@ -19,12 +19,6 @@ func BenchmarkBadger(b *testing.B) {
 			updateReadBadger(badgerDB)
 		}
 	})
-
-	// b.RunParallel(func(pb *testing.PB) {
-	// 	for pb.Next() {
-	// 		updateRead(badgerDB)
-	// 	}
-	// })
 }
 
 func BenchmarkSQLite(b *testing.B) {
@@ -41,15 +35,15 @@ func BenchmarkSQLite(b *testing.B) {
 		b.Fatalf("Not able to run read-write transactions on SQLite3: %v", err)
 	}
 
-	// b.Run("UpdateRead", func(b *testing.B) {
-	// 	for b.Loop() {
-	// 		updateReadSqlLite(sqliteDB)
-	// 	}
-	// })
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
+	b.Run("UpdateRead", func(b *testing.B) {
+		for b.Loop() {
 			updateReadSqlLite(sqliteDB)
 		}
 	})
+
+	// b.RunParallel(func(pb *testing.PB) {
+	// 	for pb.Next() {
+	// 		updateReadSqlLite(sqliteDB)
+	// 	}
+	// })
 }
